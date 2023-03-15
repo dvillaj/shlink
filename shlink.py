@@ -20,7 +20,7 @@ class Shlink:
 
     def list_links(self):
         url = f"{self.host}/rest/v3/short-urls"
-        querystring = {"itemsPerPage":"10000"}
+        querystring = {"itemsPerPage":"100000"}
         headers = {
             "accept": "application/json",
             "X-Api-Key": self.api_key
@@ -60,6 +60,19 @@ class Shlink:
         }
         response = requests.request("GET", url, data=payload, headers=headers)
         return json.loads(response.text)
+
+    def backup(self, file):
+        import pathlib
+
+        links = self.list_links()
+        pathlib.Path(file).write_text(json.dumps(links))
+
+    def restore(self, file):
+        with open(file,'r') as file:
+            data_JSON = file.read()
+            
+        return json.loads(data_JSON)
+
 
     def delete_link(self, short_url):
         url = f"{self.host}/rest/v3/short-urls/{short_url}"
