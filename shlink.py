@@ -56,10 +56,23 @@ class Shlink:
         payload = ""
         headers = {
             "accept": "application/json",
-            "X-Api-Key": api_key
+            "X-Api-Key": self.api_key
         }
         response = requests.request("GET", url, data=payload, headers=headers)
         return json.loads(response.text)
+
+    def is_valid(self, sort_url):
+        from urllib.parse import urlparse
+
+        link = self.get_link(sort_url)
+        longUrl = link['longUrl']
+        
+        try:
+            result = urlparse(longUrl)
+            return all([result.scheme, result.netloc])
+        except ValueError:
+            return False
+
 
     def backup(self, file):
         import pathlib

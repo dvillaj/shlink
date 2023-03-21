@@ -18,6 +18,9 @@ links = shlink.restore("shlink.backup")
 for n, link in enumerate(links):
     shortCode = link['shortCode']
     print(f"Processing {n + 1} - {shortCode}")
+
+    if not shlink.is_valid(shortCode):
+        print("BROKEN LINK!!")
     
     # shlink.delete_link(shortCode)
     #shlink.add_link(link['title'], link['longUrl'], shortCode, link['tags'])
