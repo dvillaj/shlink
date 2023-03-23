@@ -1,5 +1,3 @@
-import pathlib
-import json
 from shlink import Shlink
 import configparser
 
@@ -11,7 +9,7 @@ api_key=config.get("shlink", "api_key")
 
 shlink = Shlink(url_host, api_key)
 
-# shlink.backup("shlink.backup")
+#shlink.backup("shlink.backup")
 links = shlink.restore("shlink.backup")
 
 # links = shlink.list_links()
