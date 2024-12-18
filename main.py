@@ -1,18 +1,21 @@
 from shlink import Shlink
-import configparser
+import dotenv
+import os
 
-config = configparser.ConfigParser()
-config.read('shlink.properties')
+dotenv.load_dotenv()
 
-url_host=config.get("shlink", "url_host")
-api_key=config.get("shlink", "api_key")
+
+url_host=os.environ.get("shlink.url")
+api_key=os.environ.get("shlink.api.key")
 
 shlink = Shlink(url_host, api_key)
 
-#shlink.backup("shlink.backup")
-links = shlink.restore("shlink.backup")
+print(f"Status {shlink.status()}")
 
-# links = shlink.list_links()
+#shlink.backup("shlink.backup")
+#links = shlink.restore("shlink.backup")
+
+links = shlink.list_links()
 for n, link in enumerate(links):
     shortCode = link['shortCode']
     print(f"Processing {n + 1} - {shortCode}")

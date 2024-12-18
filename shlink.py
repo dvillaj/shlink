@@ -1,3 +1,4 @@
+"""Shlink class"""
 import requests
 import json
 
@@ -7,7 +8,7 @@ class Shlink:
         self.api_key = api_key
 
     def status(self):
-        url = f"{url_host}/rest/health"
+        url = f"{self.host}/rest/health"
 
         headers = {
             "accept": "application/json",
